@@ -1,0 +1,69 @@
+### BlackJack 
+
+import random
+
+
+def play_game():
+    print("This game includes 3 exciting games of Blackjack in a row!")
+    total_games = 0
+    player_hands = 0
+    dealer_hands = 0
+    
+    while total_games < 3:
+        
+        print("Game " + str(total_games + 1) + ". Let's start dealing the cards.")
+        # Dealer cards
+        dealer_cards = []
+        # Player cards
+        player_cards = []
+        # Deal the cards
+        # Dealer Cards
+        while len(dealer_cards) != 2:
+            dealer_cards.append(random.randint(1, 11))
+            if len(dealer_cards) == 2:
+                print("Dealer has X &", dealer_cards[1])
+
+        # Player Cards
+        while len(player_cards) != 2:
+            player_cards.append(random.randint(1, 11))
+            if len(player_cards) == 2:
+                print("You have ", player_cards)
+
+         # Sum of the Dealer cards
+        if sum(dealer_cards) == 21:
+            dealer_hands += 1
+            print("Dealer has 21 and wins!")
+        elif sum(dealer_cards) > 21:
+            player_hands += 1
+            print("Dealer has busted and loses!")
+
+        # Sum of the Player cards
+        while sum(player_cards) < 21:
+            action_taken = str(input("Do you want to stay or hit?  "))
+            if action_taken == "hit":
+                player_cards.append(random.randint(1, 11))
+                print("You now have a total of " + str(sum(player_cards)) + " from these cards ", player_cards)
+            else:
+                print("The dealer has a total of " + str(sum(dealer_cards)) + " with ", dealer_cards)
+                print("You have a total of " + str(sum(player_cards)) + " with ", player_cards)
+                if sum(dealer_cards) > sum(player_cards):
+                    dealer_hands += 1
+                    print("Dealer wins.")
+                else:
+                    player_hands += 1
+                    print("You win.")
+                    break
+
+        if sum(player_cards) > 21:
+            dealer_hands += 1
+            print("You got busted, the Dealer wins!")
+        elif sum(player_cards) == 21:
+            player_hands += 1
+            print("You have 21, you win!")
+        
+        print("Current Best of 3 Hands: ")
+        print("Dealer: " + str(dealer_hands) + " hand(s)" + " --- You: " + str(player_hands) + " hand(s).")
+        print("----------------------------")
+        total_games += 1
+
+play_game()
